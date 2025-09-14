@@ -1,8 +1,11 @@
 <h1>Lista de Animes</h1>
-<form method="get">
-    <input type="text" name="q" placeholder="Pesquisar anime">
-    <button type="submit">Buscar</button>
+
+<!-- Barra de pesquisa -->
+<form method="get" action="{% url 'anime_list' %}">
+    <input type="text" name="q" placeholder="Digite o nome do anime..." value="{{ request.GET.q }}">
+    <button type="submit">🔎 Pesquisar</button>
 </form>
+<hr>
 
 <ul>
     {% for anime in animes %}
@@ -10,12 +13,20 @@
         <h2>{{ anime.title }}</h2>
         <img src="{{ anime.image_url }}" width="150">
         <p>{{ anime.synopsis }}</p>
-        <a href="{% url 'add_favorito' anime.mal_id %}"> Adicionar aos Favoritos</a>
+
+        <!-- Formulário para adicionar favorito com categoria -->
+        <form method="post" action="{% url 'add_favorito' anime.mal_id %}">
+            {% csrf_token %}
+            <select name="categoria_id">
+                <option value="">-- Sem categoria --</option>
+                {% for cat in categorias %}
+                    <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">⭐ Adicionar aos Favoritos</button>
+        </form>
     </li>
     {% empty %}
     <li>Nenhum anime encontrado.</li>
     {% endfor %}
 </ul>
-
-<a href="{% url 'favoritos' %}"> Ver Favoritos</a>
-

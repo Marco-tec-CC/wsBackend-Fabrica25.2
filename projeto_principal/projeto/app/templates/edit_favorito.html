@@ -1,0 +1,9 @@
+<h1>Editar Favorito: {{ anime.title }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar alterações</button>
+</form>
+
+<a href="{% url 'favoritos' %}">⬅ Voltar para Favoritos</a>

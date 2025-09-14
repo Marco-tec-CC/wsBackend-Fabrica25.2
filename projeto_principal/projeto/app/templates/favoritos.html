@@ -6,11 +6,19 @@
         <h2>{{ anime.title }}</h2>
         <img src="{{ anime.image_url }}" width="150">
         <p>{{ anime.synopsis }}</p>
-        <a href="{% url 'delete_favorito' anime.id %}"> Remover</a>
+
+        <!-- Mostrar categoria -->
+        <p><strong>Categoria:</strong> {{ anime.categoria.nome|default:"Sem categoria" }}</p>
+
+        <!-- Editar favorito -->
+        <a href="{% url 'edit_favorito' anime.id %}">✏ Editar</a>
+
+        <!-- Remover favorito -->
+        <a href="{% url 'delete_favorito' anime.id %}">🗑 Remover</a>
     </li>
     {% empty %}
     <li>Nenhum Anime foi salvo nos favoritos.</li>
     {% endfor %}
 </ul>
 
-<a href="{% url 'anime_list' %}"> Buscar mais animes</a>
+<a href="{% url 'anime_list' %}">🔎 Buscar mais animes</a>
