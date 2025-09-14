@@ -1,26 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Animes</title>
-</head>
-<body>
-    <h1>Animes</h1>
+<h1>Lista de Animes</h1>
+<form method="get">
+    <input type="text" name="q" placeholder="Pesquisar anime">
+    <button type="submit">Buscar</button>
+</form>
 
-    <form method="get">
-        <input type="text" name="q" placeholder="Pesquisar anime">
-        <button type="submit">Buscar</button>
-    </form>
+<ul>
+    {% for anime in animes %}
+    <li>
+        <h2>{{ anime.title }}</h2>
+        <img src="{{ anime.image_url }}" width="150">
+        <p>{{ anime.synopsis }}</p>
+        <a href="{% url 'add_favorito' anime.mal_id %}"> Adicionar aos Favoritos</a>
+    </li>
+    {% empty %}
+    <li>Nenhum anime encontrado.</li>
+    {% endfor %}
+</ul>
 
-    <ul>
-        {% for anime in animes %}
-        <li>
-            <h2>{{ anime.title }}</h2>
-            <img src="{{ anime.image_url }}" width="150">
-            <p>{{ anime.synopsis }}</p>
-        </li>
-        {% empty %}
-        <li>Nenhum anime encontrado.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+<a href="{% url 'favoritos' %}"> Ver Favoritos</a>
+
