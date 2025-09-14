@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Animes</title>
+</head>
+<body>
+    <h1>Animes</h1>
+
+    <form method="get">
+        <input type="text" name="q" placeholder="Pesquisar anime">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <ul>
+        {% for anime in animes %}
+        <li>
+            <h2>{{ anime.title }}</h2>
+            <img src="{{ anime.image_url }}" width="150">
+            <p>{{ anime.synopsis }}</p>
+        </li>
+        {% empty %}
+        <li>Nenhum anime encontrado.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
